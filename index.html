@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Class 12 Arts Notes</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+    body {
+        margin: 0;
+        font-family: 'Poppins', sans-serif;
+        background: #1a1a2e;
+        color: #fff;
+    }
+
+    header {
+        text-align: center;
+        padding: 50px 20px;
+        font-size: 2.5em;
+        font-weight: 600;
+        color: #fff;
+        background: url('https://images.unsplash.com/photo-1518976024611-9d4c80f3d5b1?auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+
+    main {
+        max-width: 900px;
+        margin: 40px auto;
+        padding: 0 20px;
+    }
+
+    h2 {
+        margin-bottom: 15px;
+        color: #ff4b2b;
+    }
+
+    select, textarea {
+        width: 100%;
+        padding: 12px 15px;
+        border-radius: 15px;
+        border: none;
+        margin-bottom: 15px;
+        font-size: 1em;
+        background: rgba(255,255,255,0.1);
+        color: #fff;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        transition: all 0.3s ease;
+    }
+
+    select:focus, textarea:focus {
+        outline: none;
+        box-shadow: 0 6px 20px rgba(255,75,43,0.6);
+    }
+
+    button {
+        padding: 12px 20px;
+        margin: 10px 5px 25px 0;
+        border: none;
+        border-radius: 12px;
+        cursor: pointer;
+        font-weight: 500;
+        font-size: 1em;
+        transition: 0.3s ease;
+    }
+
+    .save { background: #ff4b2b; color: #fff; }
+    .save:hover { background: #ff416c; }
+
+    .clear { background: #6a82fb; color: #fff; }
+    .clear:hover { background: #4a00e0; }
+
+    .print { background: #00c6ff; color: #1a1a2e; }
+    .print:hover { background: #0072ff; color: #fff; }
+
+    .notes-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+    }
+
+    .note {
+        padding: 15px 20px;
+        border-radius: 20px;
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(15px);
+        box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        transition: transform 0.3s, box-shadow 0.3s;
+        position: relative;
+        overflow: hidden;
+        cursor: pointer;
+    }
+
+    .note:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 25px rgba(255,75,43,0.4);
+    }
+
+    .note strong {
+        display: block;
+        font-size: 1.1em;
+        margin-bottom: 8px;
+        color: #ff4b2b;
+    }
+
+    .note img {
+        width: 40px;
+        height: 40px;
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        opacity: 0.6;
+        transition: transform 0.3s;
+    }
+
+    .note img:hover {
+        transform: rotate(20deg) scale(1.1);
+    }
+
+    .note .timestamp {
+        font-size: 0.75em;
+        color: #ccc;
+        margin-top: 8px;
+    }
+
+    .note button.delete {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        background: #ff4b2b;
+        color: #fff;
+        border-radius: 8px;
+        padding: 5px 8px;
+        font-size: 0.8em;
+        cursor: pointer;
+        opacity: 0.8;
+        transition: opacity 0.2s;
+    }
+
+    .note button.delete:hover {
+        opacity: 1;
+    }
+
+    /* Color-coded subjects */
+    .History { border-left: 6px solid #ff4b2b; background-image: url('https://images.unsplash.com/photo-1580910051072-d5f31a3e563c?auto=format&fit=crop&w=600&q=80'); background-size: cover; background-blend-mode: overlay;}
+    .Political\ Science { border-left: 6px solid #6a82fb; background-image: url('https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=600&q=80'); background-size: cover; background-blend-mode: overlay;}
+    .Geography { border-left: 6px solid #00c6ff; background-image: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80'); background-size: cover; background-blend-mode: overlay;}
+    .Sociology { border-left: 6px solid #f9f871; background-image: url('https://images.unsplash.com/photo-1551218808-94e220e084d2?auto=format&fit=crop&w=600&q=80'); background-size: cover; background-blend-mode: overlay;}
+    .Economics { border-left: 6px solid #ff6ec7; background-image: url('https://images.unsplash.com/photo-1581090700227-99f6a9a3b0c5?auto=format&fit=crop&w=600&q=80'); background-size: cover; background-blend-mode: overlay;}
+
+    @media (max-width: 600px){
+        button { width: 100%; margin: 5px 0; }
+    }
+</style>
+</head>
+<body>
+
+<header>Demo Notes website</header>
+
+<main>
+    <h2>Add a Note or Idea</h2>
+    <select id="subject">
+        <option value="History">History</option>
+        <option value="Political Science">Political Science</option>
+        <option value="Geography">Geography</option>
+        <option value="Fine arts not hindi ">Fine arts </option>
+        <option value="IT ">IT</option>
+        <option value="English">English</option>
+    </select>
+    <textarea id="noteContent" placeholder="Write your note here..."></textarea>
+    <div>
+        <button class="save" onclick="saveNote()">💾 Save Note</button>
+        <button class="clear" onclick="clearNotes()">🗑️ Clear All Notes</button>
+        <button class="print" onclick="printNotes()">🖨️ Print Notes</button>
+    </div>
+
+    <h2>Saved Notes</h2>
+    <div class="notes-container" id="notesContainer"></div>
+</main>
+
+<script>
+    const subjectImages = {
+        "History": "https://www.euroschoolindia.com/blogs/wp-content/uploads/2023/07/how-to-learn-history.jpg",
+        "Political Science": "https://img.icons8.com/fluency/48/000000/government.png",
+        "Geography": "https://img.icons8.com/fluency/48/000000/globe.png",
+        "Sociology": "https://img.icons8.com/fluency/48/000000/group.png",
+        "IT(information and technology)": "https://img.icons8.com/fluency/48/000000/money-bag.png"
+    };
+
+    window.onload = function() {
+        displayNotes();
+    }
+
+    function saveNote() {
+        const subject = document.getElementById('subject').value;
+        const content = document.getElementById('noteContent').value.trim();
+        if(content === "") {
+            alert("Note cannot be empty!");
+            return;
+        }
+
+        const timestamp = new Date().toLocaleString();
+        let notes = JSON.parse(localStorage.getItem('notes')) || [];
+        notes.push({subject, content, timestamp});
+        localStorage.setItem('notes', JSON.stringify(notes));
+        document.getElementById('noteContent').value = "";
+        displayNotes();
+    }
+
+    function displayNotes() {
+        const container = document.getElementById('notesContainer');
+        const notes = JSON.parse(localStorage.getItem('notes')) || [];
+        container.innerHTML = "";
+
+        notes.forEach((note, index) => {
+            const noteDiv = document.createElement('div');
+            noteDiv.className = `note ${note.subject.replace(" ", "\\ ")}`;
+            noteDiv.innerHTML = `
+                <strong>${note.subject}</strong>
+                ${note.content}
+                <div class="timestamp">${note.timestamp}</div>
+                <img src="${subjectImages[note.subject]}" alt="${note.subject} icon">
+                <button class="delete" onclick="deleteNote(${index})">Delete</button>
+            `;
+            container.appendChild(noteDiv);
+        });
+    }
+
+    function deleteNote(index) {
+        let notes = JSON.parse(localStorage.getItem('notes')) || [];
+        notes.splice(index, 1);
+        localStorage.setItem('notes', JSON.stringify(notes));
+        displayNotes();
+    }
+
+    function clearNotes() {
+        if(confirm("Are you sure you want to delete all notes?")) {
+            localStorage.removeItem('notes');
+            displayNotes();
+        }
+    }
+
+    function printNotes() {
+        const notes = document.getElementById('notesContainer').innerHTML;
+        const newWin = window.open("", "", "width=800,height=600");
+        newWin.document.write("<html><head><title>Print Notes</title></head><body>");
+        newWin.document.write(notes);
+        newWin.document.write("</body></html>");
+        newWin.print();
+    }
+</script>
+
+</body>
+</html>
